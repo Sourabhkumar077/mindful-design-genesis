@@ -1,29 +1,29 @@
 
 import React from 'react';
-import { Brain, Heart, UserRound, MessageCircle } from 'lucide-react';
+import { MessageCircle, Smile, UserRound, Heart } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
 const services = [
   {
-    icon: Brain,
-    title: 'Cognitive Therapy',
-    description: 'Change negative thoughts and behaviors through evidence-based cognitive techniques.'
+    icon: MessageCircle,
+    title: 'AI-Powered Chat Therapy',
+    description: 'Chat with our intelligent AI therapist for real-time support and coping strategies.',
   },
   {
-    icon: Heart,
-    title: 'Emotional Support',
-    description: 'Learn to understand and process your emotions in a healthy, constructive way.'
+    icon: Smile,
+    title: 'Mood Tracker',
+    description: 'Log your mood daily and identify emotional patterns over time.',
   },
   {
     icon: UserRound,
-    title: 'Personal Growth',
-    description: 'Discover your strengths and develop skills to achieve your full potential.'
+    title: 'Personalized Therapist Suggestions',
+    description: 'Get matched with therapists tailored to your unique needs and preferences.',
   },
   {
-    icon: MessageCircle,
-    title: 'Relationship Counseling',
-    description: 'Improve communication and resolve conflicts in your important relationships.'
-  }
+    icon: Heart,
+    title: 'Guided Journaling',
+    description: 'Write journal entries and receive prompts to reflect on your thoughts and progress.',
+  },
 ];
 
 const ServicesSection = () => {
@@ -35,18 +35,19 @@ const ServicesSection = () => {
             Our Services
           </h2>
           <p className="text-gray-600">
-            We offer a range of specialized therapy services designed to support your mental health and wellbeing.
+            Explore AI-driven tools designed to support your mental health and self-growth journey.
           </p>
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        <div className="stagger-fade-in grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service, index) => (
-            <Card 
-              key={index} 
-              className="bg-white transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+            <Card
+              key={index}
+              className="bg-white transition-all duration-300 hover:shadow-lg hover:scale-105 hover:-translate-y-1 animate-on-scroll"
+              style={{ minHeight: 320 }}
             >
               <CardContent className="p-8 flex flex-col items-center text-center">
-                <div className="bg-light-lavender rounded-full p-4 mb-6">
+                <div className="bg-light-lavender rounded-full p-4 mb-6 flex items-center justify-center">
                   <service.icon className="w-8 h-8 text-lavender" />
                 </div>
                 <h3 className="text-xl font-semibold mb-3 text-gray-800">{service.title}</h3>
@@ -61,3 +62,4 @@ const ServicesSection = () => {
 };
 
 export default ServicesSection;
+
