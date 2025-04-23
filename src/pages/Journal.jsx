@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import AppNavbar from '../components/AppNavbar';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -255,7 +256,13 @@ const Journal = () => {
                     </span>
                   </div>
                   <CardDescription className="flex items-center gap-1">
-                    <div className={`w-2 h-2 rounded-full ${selectedEntry.mood === 'Happy' ? 'bg-green-400' : selectedEntry.mood === 'Neutral' ? 'bg-blue-400' : selectedEntry.mood === 'Sad' ? 'bg-red-400'}`}></div>
+                    <div className={`w-2 h-2 rounded-full ${
+                      selectedEntry.mood === 'Happy' 
+                        ? 'bg-green-400' 
+                        : selectedEntry.mood === 'Neutral' 
+                          ? 'bg-blue-400' 
+                          : 'bg-red-400'
+                    }`}></div>
                     {selectedEntry.mood} mood
                   </CardDescription>
                 </CardHeader>
