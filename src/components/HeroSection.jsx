@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
   return (
@@ -14,11 +15,29 @@ const HeroSection = () => {
       <div className="container mx-auto px-4 relative z-10 text-center animate-fade-in">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">Find Your Inner Peace</h1>
         <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto text-gray-200">
-          Professional mental health care dedicated to helping you live a better, more fulfilling life
+          Professional mental health care powered by AI, dedicated to helping you live a better, more fulfilling life
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
-          <button className="btn-primary">Get Help</button>
-          <button className="btn-outline">Learn More</button>
+          <Link to="/register" className="btn-primary">Get Started</Link>
+          <Link to="/chatbot" className="btn-outline">Talk to AI Assistant</Link>
+        </div>
+        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+          <Link to="/dashboard" className="bg-white bg-opacity-10 backdrop-blur-sm p-4 rounded-lg hover:bg-opacity-20 transition-all">
+            <h3 className="text-lg font-semibold mb-1">Mood Tracking</h3>
+            <p className="text-sm text-gray-200">Monitor your daily emotions</p>
+          </Link>
+          <Link to="/journal" className="bg-white bg-opacity-10 backdrop-blur-sm p-4 rounded-lg hover:bg-opacity-20 transition-all">
+            <h3 className="text-lg font-semibold mb-1">Journaling</h3>
+            <p className="text-sm text-gray-200">Reflect on your thoughts</p>
+          </Link>
+          <Link to="/therapists" className="bg-white bg-opacity-10 backdrop-blur-sm p-4 rounded-lg hover:bg-opacity-20 transition-all">
+            <h3 className="text-lg font-semibold mb-1">Find Therapists</h3>
+            <p className="text-sm text-gray-200">Connect with professionals</p>
+          </Link>
+          <Link to="/chatbot" className="bg-white bg-opacity-10 backdrop-blur-sm p-4 rounded-lg hover:bg-opacity-20 transition-all">
+            <h3 className="text-lg font-semibold mb-1">AI Assistant</h3>
+            <p className="text-sm text-gray-200">24/7 mental health support</p>
+          </Link>
         </div>
       </div>
     </section>
