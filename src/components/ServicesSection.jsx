@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Brain, Heart, UserRound, MessageCircle } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
 
 const services = [
   {
@@ -27,7 +28,7 @@ const services = [
 
 const ServicesSection = () => {
   return (
-    <section id="services" className="section-padding">
+    <section id="services" className="py-16 md:py-24 bg-light-gray">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-semibold mb-4 text-gray-800">
@@ -38,18 +39,20 @@ const ServicesSection = () => {
           </p>
         </div>
         
-        <div className="stagger-fade-in grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service, index) => (
-            <div 
+            <Card 
               key={index} 
-              className="card-hover bg-white rounded-lg p-8 shadow-md flex flex-col items-center text-center"
+              className="bg-white transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
             >
-              <div className="bg-light-lavender rounded-full p-4 mb-6">
-                <service.icon className="w-8 h-8 text-lavender" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3 text-gray-800">{service.title}</h3>
-              <p className="text-gray-600">{service.description}</p>
-            </div>
+              <CardContent className="p-8 flex flex-col items-center text-center">
+                <div className="bg-light-lavender rounded-full p-4 mb-6">
+                  <service.icon className="w-8 h-8 text-lavender" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3 text-gray-800">{service.title}</h3>
+                <p className="text-gray-600">{service.description}</p>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </div>
