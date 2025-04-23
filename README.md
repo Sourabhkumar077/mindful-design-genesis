@@ -1,73 +1,84 @@
-# Welcome to your Lovable project
 
-## Project info
+# Serrenity: AI-Powered Mental Wellness Platform
 
-**URL**: https://lovable.dev/projects/7806fd49-e444-4ae8-9c9a-5725923e56ee
+## Project Overview
 
-## How can I edit this code?
+Serrenity is an innovative mental health platform leveraging AI to provide personalized wellness support through advanced features like AI-powered chat therapy, mood tracking, guided journaling, and therapist recommendations.
 
-There are several ways of editing your application.
+## Screenshots
 
-**Use Lovable**
+![Serrenity Dashboard](https://images.unsplash.com/photo-1581091226825-a6a2a5aee158 "Serrenity Web Interface")
+![Mental Wellness Platform](https://images.unsplash.com/photo-1649972904349-6e44c42644a7 "AI Mental Health Tools")
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/7806fd49-e444-4ae8-9c9a-5725923e56ee) and start prompting.
+## Features
 
-Changes made via Lovable will be committed automatically to this repo.
+- 🤖 AI-Powered Chat Therapy
+- 📊 Mood Tracking & Analysis
+- 📝 Guided Journaling
+- 👥 Personalized Therapist Matching
 
-**Use your preferred IDE**
+## Prerequisites
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- Node.js (v18 or later)
+- npm or Bun
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Installation Steps
 
-Follow these steps:
+```bash
+# Clone the repository
+git clone <your-repo-url>
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# Navigate to project directory
+cd serrenity
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Install dependencies
+npm install
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start development server
 npm run dev
+
+# Build for production
+npm run build
 ```
 
-**Edit a file directly in GitHub**
+## Environment Setup
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+1. Ensure you have Node.js installed
+2. Copy `.env.example` to `.env`
+3. Fill in necessary environment variables
 
-**Use GitHub Codespaces**
+## Technology Stack
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
 - React
-- shadcn-ui
+- TypeScript
 - Tailwind CSS
+- shadcn/ui
+- Vite
 
-## How can I deploy this project?
+## Deployment
 
-Simply open [Lovable](https://lovable.dev/projects/7806fd49-e444-4ae8-9c9a-5725923e56ee) and click on Share -> Publish.
+```bash
+# Production build
+npm run build
 
-## Can I connect a custom domain to my Lovable project?
+# Preview production build
+npm run preview
+```
 
-Yes, you can!
+## Contributing
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## License
+
+Distributed under the MIT License.
+
+## Contact
+
+Your Name - your.email@example.com
+
+Project Link: [Your Project Repository URL]
