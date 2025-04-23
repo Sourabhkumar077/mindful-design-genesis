@@ -1,76 +1,51 @@
 
 import React from 'react';
 
+const navLinks = [
+  { label: 'Home', href: '#home' },
+  { label: 'Services', href: '#services' },
+  { label: 'Journal', href: '/journal' },
+  { label: 'Mood Tracker', href: '/dashboard' },
+  { label: 'ChatBot', href: '/chatbot' },
+  { label: 'Therapists', href: '/therapists' },
+  { label: 'Contact', href: '#contact' }
+];
+
 const Footer = () => {
   return (
     <footer className="bg-gray-800 text-white pt-12 pb-6">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-          {/* Column 1 - About */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          {/* Column 1 - Brand/About */}
           <div>
             <h3 className="text-xl font-semibold mb-4">Serrenity</h3>
             <p className="text-gray-400 mb-4">
-              Professional mental health care dedicated to helping you live a better, more fulfilling life.
+              AI-powered mental wellness – Therapy, Journaling, Mood Tracking & More.
             </p>
-            <div className="flex space-x-4">
-              {['facebook', 'twitter', 'instagram', 'linkedin'].map((social, index) => (
-                <a 
-                  key={index} 
-                  href="#" 
-                  className="text-gray-400 hover:text-lavender transition-colors"
-                >
-                  <i className={`fa fa-${social}`}></i>
-                </a>
-              ))}
-            </div>
           </div>
-          
-          {/* Column 2 - Quick Links */}
+
+          {/* Column 2 - Navigation */}
           <div>
-            <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
+            <h3 className="text-xl font-semibold mb-4">Navigation</h3>
             <ul className="space-y-2">
-              {['Home', 'About', 'Services', 'Team', 'Blog', 'Contact'].map((link, index) => (
+              {navLinks.map((link, index) => (
                 <li key={index}>
                   <a 
-                    href={`#${link.toLowerCase()}`} 
+                    href={link.href} 
                     className="text-gray-400 hover:text-lavender transition-colors"
                   >
-                    {link}
+                    {link.label}
                   </a>
                 </li>
               ))}
             </ul>
           </div>
-          
-          {/* Column 3 - Services */}
-          <div>
-            <h3 className="text-xl font-semibold mb-4">Our Services</h3>
-            <ul className="space-y-2">
-              {[
-                'Individual Therapy',
-                'Couples Counseling',
-                'Family Therapy',
-                'Cognitive Behavioral Therapy',
-                'Group Therapy',
-                'Child & Adolescent Therapy'
-              ].map((service, index) => (
-                <li key={index}>
-                  <a 
-                    href="#services" 
-                    className="text-gray-400 hover:text-lavender transition-colors"
-                  >
-                    {service}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          
-          {/* Column 4 - Newsletter */}
+
+          {/* Column 3 - Newsletter */}
           <div>
             <h3 className="text-xl font-semibold mb-4">Newsletter</h3>
             <p className="text-gray-400 mb-4">
-              Subscribe to our newsletter for the latest articles and resources.
+              Stay updated with our latest features & articles.
             </p>
             <form className="mb-2">
               <div className="flex">
@@ -88,11 +63,11 @@ const Footer = () => {
               </div>
             </form>
             <p className="text-xs text-gray-500">
-              We respect your privacy. Unsubscribe at any time.
+              We respect your privacy.
             </p>
           </div>
         </div>
-        
+
         {/* Bottom Bar */}
         <div className="pt-6 border-t border-gray-700 text-center text-gray-500 text-sm">
           <p>&copy; {new Date().getFullYear()} Serrenity. All rights reserved.</p>
@@ -103,3 +78,4 @@ const Footer = () => {
 };
 
 export default Footer;
+
