@@ -1,10 +1,8 @@
-
 import React, { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
 import AboutSection from '@/components/AboutSection';
 import ServicesSection from '@/components/ServicesSection';
-import StatisticsSection from '@/components/StatisticsSection';
 import TeamSection from '@/components/TeamSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import BlogSection from '@/components/BlogSection';
@@ -16,7 +14,6 @@ import AnimationController from '@/components/AnimationController';
 
 const Index = () => {
   useEffect(() => {
-    // Add font awesome for icons
     const script = document.createElement('script');
     script.src = 'https://kit.fontawesome.com/a076d05399.js';
     script.crossOrigin = 'anonymous';
@@ -33,7 +30,6 @@ const Index = () => {
       <HeroSection />
       <AboutSection />
       <ServicesSection />
-      <StatisticsSection />
       <TeamSection />
       <TestimonialsSection />
       <BlogSection />
