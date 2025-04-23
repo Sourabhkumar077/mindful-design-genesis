@@ -61,7 +61,14 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				// Custom therapy website colors
+				lavender: '#9b87f5',
+				'light-lavender': '#E5DEFF',
+				teal: '#33C3F0',
+				'soft-blue': '#D3E4FD',
+				'light-gray': '#F1F0FB',
+				'neutral-gray': '#8E9196'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,11 +91,40 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'fade-in': {
+					'0%': { opacity: '0' },
+					'100%': { opacity: '1' }
+				},
+				'slide-in-left': {
+					'0%': { transform: 'translateX(-100px)', opacity: '0' },
+					'100%': { transform: 'translateX(0)', opacity: '1' }
+				},
+				'slide-in-right': {
+					'0%': { transform: 'translateX(100px)', opacity: '0' },
+					'100%': { transform: 'translateX(0)', opacity: '1' }
+				},
+				'slide-up': {
+					'0%': { transform: 'translateY(100px)', opacity: '0' },
+					'100%': { transform: 'translateY(0)', opacity: '1' }
+				},
+				'count-up': {
+					'0%': { content: '"0"' },
+					'20%': { content: '"20"' },
+					'40%': { content: '"40"' },
+					'60%': { content: '"60"' },
+					'80%': { content: '"80"' },
+					'100%': { content: '"100"' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-in': 'fade-in 1s ease-in-out',
+				'slide-in-left': 'slide-in-left 0.8s ease-out',
+				'slide-in-right': 'slide-in-right 0.8s ease-out',
+				'slide-up': 'slide-up 0.8s ease-out',
+				'count-up': 'count-up 2s ease-out forwards'
 			}
 		}
 	},

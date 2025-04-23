@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -93,9 +95,96 @@
 @layer base {
   * {
     @apply border-border;
+    scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-['Poppins'];
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-['Playfair_Display'] font-medium;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-lavender text-white py-3 px-6 rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+  }
+
+  .btn-outline {
+    @apply border-2 border-white text-white py-3 px-6 rounded-full transition-all duration-300 hover:bg-white hover:text-lavender;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+
+  .nav-link {
+    @apply relative text-gray-700 hover:text-lavender transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-lavender after:transform after:scale-x-0 after:transition-transform after:duration-300 hover:after:scale-x-100;
+  }
+
+  .nav-link.active {
+    @apply text-lavender after:scale-x-100;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-2;
+  }
+
+  .scrolled {
+    @apply bg-white shadow-md;
+  }
+}
+
+.testimonial-slider .slick-dots li button:before {
+  @apply text-lavender;
+}
+
+.counter {
+  counter-reset: count 0;
+  animation: count-up 2s forwards ease-out;
+}
+
+.counter::after {
+  content: counter(count);
+  animation: count-up 2s forwards ease-out;
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-fade-in > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.stagger-fade-in.visible > *:nth-child(1) {
+  transition-delay: 0s;
+}
+
+.stagger-fade-in.visible > *:nth-child(2) {
+  transition-delay: 0.1s;
+}
+
+.stagger-fade-in.visible > *:nth-child(3) {
+  transition-delay: 0.2s;
+}
+
+.stagger-fade-in.visible > *:nth-child(4) {
+  transition-delay: 0.3s;
+}
+
+.stagger-fade-in.visible > * {
+  opacity: 1;
+  transform: translateY(0);
 }
