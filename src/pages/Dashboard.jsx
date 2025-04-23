@@ -1,9 +1,8 @@
-
 import React, { useState } from 'react';
 import AppNavbar from '../components/AppNavbar';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Smile, Meh, Frown, Calendar, ArrowRight, TrendingUp } from 'lucide-react';
+import { Smile, Meh, Frown, Calendar, ArrowRight, TrendingUp, Book } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const MoodTracker = () => {
@@ -52,7 +51,6 @@ const MoodTracker = () => {
 };
 
 const Dashboard = () => {
-  // Mock data - would come from API in a real app
   const recentJournalEntries = [
     { id: 1, date: 'April 21, 2025', title: 'Finding balance', excerpt: 'Today I practiced meditation for 20 minutes and felt more centered afterward...' },
     { id: 2, date: 'April 19, 2025', title: 'Challenging day', excerpt: 'Work was stressful but I managed to use the breathing techniques...' },
