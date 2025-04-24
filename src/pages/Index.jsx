@@ -7,8 +7,6 @@ import ServicesSection from '../components/ServicesSection';
 import TeamSection from '../components/TeamSection';
 import TestimonialsSection from '../components/TestimonialsSection';
 import BlogSection from '../components/BlogSection';
-import AppointmentSection from '../components/AppointmentSection';
-import ContactSection from '../components/ContactSection';
 import Footer from '../components/Footer';
 import ScrollToTop from '../components/ScrollToTop';
 import AnimationController from '../components/AnimationController';
@@ -24,8 +22,6 @@ const Index = () => {
       <TeamSection />
       <TestimonialsSection />
       <BlogSection />
-      <AppointmentSection />
-      <ContactSection />
       <Footer />
       <ScrollToTop />
     </div>
