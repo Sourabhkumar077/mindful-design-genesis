@@ -7,17 +7,13 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 // Register GSAP plugin
 gsap.registerPlugin(ScrollTrigger);
 
-// Placeholder image URL - replace with your actual image
-const profileImageUrl = 'https://img.freepik.com/premium-photo/side-view-silhouette-man-looking-away_1048944-13094014.jpg?w=740';
-
 const HeroSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLImageElement>(null);
   const textContentRef = useRef<HTMLDivElement>(null);
   const exploreLinksRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Apply scroll reveal to text elements
+    // Animate text content
     if (textContentRef.current) {
       const elements = textContentRef.current.children;
       Array.from(elements).forEach((el, index) => {
@@ -33,8 +29,7 @@ const HeroSection = () => {
         }
       });
     }
-
-    // Apply scroll reveal to explore links
+    // Animate explore links
     if (exploreLinksRef.current) {
       gsap.from(exploreLinksRef.current, {
         scrollTrigger: { trigger: exploreLinksRef.current, start: "top 95%", toggleActions: "play none none reverse" },
@@ -45,71 +40,58 @@ const HeroSection = () => {
         ease: "power3.out"
       });
     }
-
-    // Add floating animation to the image
-    if (imageRef.current) {
-      gsap.to(imageRef.current, {
-        y: -15,
-        duration: 4,
-        ease: "sine.inOut",
-        repeat: -1,
-        yoyo: true
-      });
-    }
-
-    // GSAP Parallax for the image
-    if (imageRef.current && sectionRef.current) {
-      gsap.to(imageRef.current, {
-        yPercent: -10,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true
-        },
-      });
-    }
   }, []);
 
   return (
     <section
       id="home"
       ref={sectionRef}
-      className="relative min-h-screen flex flex-col justify-center bg-white text-black overflow-hidden pt-20 md:pt-28"
+      className="relative min-h-screen flex items-center justify-center text-white"
     >
-      <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 items-center gap-8 relative z-10">
-        {/* Left Text Content */}
-        <div ref={textContentRef} className="flex flex-col items-start md:max-w-md">
-          <h2 className="text-sm uppercase text-gray-500 tracking-widest mb-2">Mindful Design</h2>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium mb-4 leading-tight">
-            Beyond Therapy.
-          </h1>
-          <p className="text-base md:text-lg text-gray-600 mb-6">
-            Explore innovative tools and resources designed for your mental well-being journey.
-          </p>
-          {/* Explore Links */}
-          <div ref={exploreLinksRef} className="flex items-center gap-3 text-sm text-gray-700">
-            <span>Explore:</span>
-            <Button variant="outline" size="sm" className="rounded-full border-gray-400 hover:bg-gray-100 transition-colors">A¹ Sense</Button>
-            <Button variant="outline" size="sm" className="rounded-full border-gray-400 hover:bg-gray-100 transition-colors">B¹ Eye</Button>
-            <Button variant="outline" size="sm" className="rounded-full border-gray-400 hover:bg-gray-100 transition-colors">A¹ Neuro</Button>
-          </div>
-        </div>
+      {/* Background Image ONLY */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
+        style={{
+          backgroundImage: "url('https://a.storyblok.com/f/274239/1456x816/aba6425720/homepage-hero.png/m/1800x1008/filters:format(webp):quality(70)')",
+          backgroundPosition: '50% 30%',
+        }}
+      />
 
-        {/* Right Image Content */}
-        <div className="relative flex justify-center items-center h-[60vh] md:h-[80vh]">
-          <img
-            ref={imageRef}
-            src={profileImageUrl}
-            alt="Profile silhouette"
-            className="absolute inset-0 w-full h-full object-contain object-center max-h-[70vh] md:max-h-full"
-            style={{
-              maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
-              WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
-            }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/50 to-transparent z-[-1]"></div>
+      {/* Content */}
+      <div className="container mx-auto px-4 relative z-10 text-center animate-fade-in">
+        <div ref={textContentRef}>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
+            Your Journey to Mental Wellness
+          </h1>
+          <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto text-gray-200">
+            Compassionate support and personalized strategies to help you navigate life's challenges and find inner peace
+          </p>
+        </div>
+        <div ref={exploreLinksRef} className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
+          <Button className="btn-primary bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700">
+            Start Your Healing Journey
+          </Button>
+          <Button className="btn-outline hover:bg-white/10" variant="outline">
+            Connect with Support
+          </Button>
+        </div>
+        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+          <div className="bg-white bg-opacity-10 backdrop-blur-sm p-4 rounded-lg hover:bg-opacity-20 transition-all">
+            <h3 className="text-lg font-semibold mb-1">Mood Tracking</h3>
+            <p className="text-sm text-gray-200">Monitor your emotional well-being</p>
+          </div>
+          <div className="bg-white bg-opacity-10 backdrop-blur-sm p-4 rounded-lg hover:bg-opacity-20 transition-all">
+            <h3 className="text-lg font-semibold mb-1">Self-Reflection</h3>
+            <p className="text-sm text-gray-200">Explore your inner thoughts</p>
+          </div>
+          <div className="bg-white bg-opacity-10 backdrop-blur-sm p-4 rounded-lg hover:bg-opacity-20 transition-all">
+            <h3 className="text-lg font-semibold mb-1">Professional Support</h3>
+            <p className="text-sm text-gray-200">Connect with experts</p>
+          </div>
+          <div className="bg-white bg-opacity-10 backdrop-blur-sm p-4 rounded-lg hover:bg-opacity-20 transition-all">
+            <h3 className="text-lg font-semibold mb-1">Mental Health Resources</h3>
+            <p className="text-sm text-gray-200">Learn and grow</p>
+          </div>
         </div>
       </div>
 
