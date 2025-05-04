@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { Book, MessageSquare, Users, Home, LogOut, User } from 'lucide-react';
+import { Book, MessageSquare, Users, Home, LogOut, User, ClipboardList, FileText } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 const AppNavbar = () => {
@@ -34,6 +34,16 @@ const AppNavbar = () => {
             <Link to="/chat" className="nav-link">
               <MessageSquare className="w-5 h-5" />
             </Link>
+            {isAuthenticated && (
+              <>
+                <Link to="/journal" className="nav-link">
+                  <FileText className="w-5 h-5" />
+                </Link>
+                <Link to="/assessment" className="nav-link">
+                  <ClipboardList className="w-5 h-5" />
+                </Link>
+              </>
+            )}
           </div>
 
           <div className="flex items-center space-x-4">

@@ -1,11 +1,42 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { FaArrowRight, FaRegLightbulb, FaRegClock, FaRegUser, FaRegHeart } from 'react-icons/fa';
+import { FaArrowRight, FaRegLightbulb, FaRegClock, FaRegUser, FaRegHeart, FaRobot, FaBook, FaClipboardList, FaChartLine } from 'react-icons/fa';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Shield, Heart, Brain, Users, MessageSquare, Book, Calendar, Star } from 'lucide-react';
+import { Shield, Heart, Brain, Users, MessageSquare, Book, Calendar, Star, Bot, ClipboardCheck, LineChart } from 'lucide-react';
 
 const HeroSection: React.FC = () => {
+  const coreFeatures = [
+    {
+      title: 'AI Chatbot Support',
+      description: '24/7 AI-powered mental health support and guidance',
+      icon: Bot,
+      color: 'text-blue-500',
+      link: '/chat'
+    },
+    {
+      title: 'Personal Journal',
+      description: 'Track your thoughts and emotions in a private space',
+      icon: Book,
+      color: 'text-green-500',
+      link: '/journal'
+    },
+    {
+      title: 'Mental Health Assessment',
+      description: 'GAD-7 and PHQ-9 assessments for anxiety and depression',
+      icon: ClipboardCheck,
+      color: 'text-purple-500',
+      link: '/assessment'
+    },
+    {
+      title: 'Personal Dashboard',
+      description: 'Track your progress and mental health journey',
+      icon: LineChart,
+      color: 'text-pink-500',
+      link: '/dashboard'
+    }
+  ];
+
   const features = [
     {
       title: '24/7 Support',
@@ -82,13 +113,14 @@ const HeroSection: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gradient-to-b from-background to-muted">
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-primary/10 to-secondary/20" />
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/10 rounded-full blur-3xl animate-pulse" />
           <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary/10 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" />
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
@@ -137,6 +169,49 @@ const HeroSection: React.FC = () => {
               </Link>
             </motion.div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Core Features Section */}
+      <section className="py-20 bg-background/50 backdrop-blur-sm">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl font-bold mb-4 gradient-text">Core Features</h2>
+            <p className="text-xl text-muted-foreground">Essential tools for your mental wellness journey</p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {coreFeatures.map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <Link to={feature.link}>
+                  <Card className="hover-scale h-full bg-background/80 backdrop-blur-sm border-primary/20 hover:border-primary/40 transition-all duration-300">
+                    <CardHeader>
+                      <div className={`${feature.color} mb-2`}>
+                        <feature.icon className="w-8 h-8" />
+                      </div>
+                      <CardTitle>{feature.title}</CardTitle>
+                      <CardDescription>{feature.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <button className="btn-primary w-full">Explore</button>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 

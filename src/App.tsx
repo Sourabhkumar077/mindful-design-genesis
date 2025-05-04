@@ -11,35 +11,41 @@ import Community from './pages/Community';
 import Chat from './pages/Chat';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Journal from './pages/Journal';
+import Assessment from './pages/Assessment';
 import NotFound from './pages/NotFound';
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <AuthProvider>
-        <Router>
-          <div className="min-h-screen bg-background">
-            <AppNavbar />
-            <main className="pt-16">
-              <Routes>
-                <Route path="/" element={<HeroSection />} />
-                <Route path="/resources" element={<Resources />} />
-                <Route path="/community" element={<Community />} />
-                <Route path="/chat" element={<Chat />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </main>
-          </div>
-        </Router>
-      </AuthProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <AuthProvider>
+          <Router>
+            <div className="min-h-screen bg-background">
+              <AppNavbar />
+              <main className="pt-16">
+                <Routes>
+                  <Route path="/" element={<HeroSection />} />
+                  <Route path="/resources" element={<Resources />} />
+                  <Route path="/community" element={<Community />} />
+                  <Route path="/chat" element={<Chat />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/journal" element={<Journal />} />
+                  <Route path="/assessment" element={<Assessment />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </main>
+            </div>
+          </Router>
+        </AuthProvider>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+}
 
 export default App;
