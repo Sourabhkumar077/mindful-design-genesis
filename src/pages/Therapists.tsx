@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import AppNavbar from '../components/AppNavbar';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,7 +5,35 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, MapPin, Star, Filter, Phone, Calendar } from 'lucide-react';
 
-const TherapistCard = ({ therapist }) => {
+interface Therapist {
+  id: number;
+  name: string;
+  specialty: string;
+  rating: number;
+  reviewCount: number;
+  location: string;
+  bio: string;
+  tags: string[];
+  image: string;
+  sessionTypes: ('In-person' | 'Video')[];
+}
+
+interface Filters {
+  minRating: number;
+  specialties: string[];
+  sessionTypes: ('In-person' | 'Video')[];
+}
+
+interface TherapistCardProps {
+  therapist: Therapist;
+}
+
+interface FilterPanelProps {
+  filters: Filters;
+  setFilters: React.Dispatch<React.SetStateAction<Filters>>;
+}
+
+const TherapistCard: React.FC<TherapistCardProps> = ({ therapist }) => {
   return (
     <Card className="card-hover">
       <CardHeader className="pb-2">
@@ -60,12 +87,12 @@ const TherapistCard = ({ therapist }) => {
   );
 };
 
-const FilterPanel = ({ filters, setFilters }) => {
+const FilterPanel: React.FC<FilterPanelProps> = ({ filters, setFilters }) => {
   const specialties = [
     "Anxiety", "Depression", "Stress", "Trauma", "Relationships", "Self-esteem"
   ];
   
-  const handleSpecialtyChange = (specialty) => {
+  const handleSpecialtyChange = (specialty: string) => {
     if (filters.specialties.includes(specialty)) {
       setFilters({
         ...filters,
@@ -174,16 +201,16 @@ const FilterPanel = ({ filters, setFilters }) => {
   );
 };
 
-const Therapists = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filters, setFilters] = useState({
+const Therapists: React.FC = () => {
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [filters, setFilters] = useState<Filters>({
     minRating: 0,
     specialties: [],
     sessionTypes: []
   });
   
   // Mock data - would come from API in a real app
-  const therapists = [
+  const therapists: Therapist[] = [
     {
       id: 1,
       name: "Dr. Sarah Johnson",
@@ -248,81 +275,75 @@ const Therapists = () => {
   
   const filteredTherapists = therapists.filter(therapist => {
     // Search term filter
-    const matchesSearch = searchTerm === '' || 
-      therapist.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      therapist.bio.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      therapist.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+    const matchesSearch = therapist.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         therapist.specialty.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         therapist.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
     
     // Rating filter
     const matchesRating = therapist.rating >= filters.minRating;
     
     // Specialties filter
     const matchesSpecialties = filters.specialties.length === 0 || 
-      filters.specialties.some(specialty => 
-        therapist.tags.includes(specialty)
-      );
+                             filters.specialties.some(specialty => therapist.tags.includes(specialty));
     
-    // Session types filter
-    const matchesSessionTypes = filters.sessionTypes.length === 0 ||
-      filters.sessionTypes.some(type => 
-        therapist.sessionTypes.includes(type)
-      );
+    // Session type filter
+    const matchesSessionTypes = filters.sessionTypes.length === 0 || 
+                              filters.sessionTypes.some(type => therapist.sessionTypes.includes(type));
     
     return matchesSearch && matchesRating && matchesSpecialties && matchesSessionTypes;
   });
-
+  
   return (
     <div className="min-h-screen bg-gray-50">
       <AppNavbar />
       <div className="container mx-auto px-4 pt-24 pb-12">
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold text-gray-800">Find a Therapist</h1>
-          <p className="text-gray-600">Connect with licensed therapists matched to your needs</p>
-        </div>
-        
-        <div className="mb-6">
-          <div className="relative max-w-xl">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-800">Find a Therapist</h1>
+            <p className="text-gray-600">Connect with licensed mental health professionals</p>
+          </div>
+          <div className="relative w-full md:w-64">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
             <Input 
-              placeholder="Search by name, specialty, or keywords..." 
+              placeholder="Search therapists..." 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 pr-4 py-2"
+              className="pl-9"
             />
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div className="md:col-span-1">
             <FilterPanel filters={filters} setFilters={setFilters} />
           </div>
           
-          <div className="md:col-span-2 lg:col-span-3">
-            {filteredTherapists.length > 0 ? (
-              <div className="space-y-6">
-                {filteredTherapists.map(therapist => (
+          <div className="md:col-span-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {filteredTherapists.length > 0 ? (
+                filteredTherapists.map(therapist => (
                   <TherapistCard key={therapist.id} therapist={therapist} />
-                ))}
-              </div>
-            ) : (
-              <Card className="p-8 text-center">
-                <Search size={40} className="mx-auto text-gray-300 mb-2" />
-                <p className="text-gray-500 mb-2">No therapists match your current filters.</p>
-                <Button 
-                  variant="outline"
-                  onClick={() => {
-                    setSearchTerm('');
-                    setFilters({
-                      minRating: 0,
-                      specialties: [],
-                      sessionTypes: []
-                    });
-                  }}
-                >
-                  Reset all filters
-                </Button>
-              </Card>
-            )}
+                ))
+              ) : (
+                <div className="col-span-2 text-center py-12">
+                  <p className="text-gray-500">No therapists found matching your criteria.</p>
+                  <Button 
+                    variant="outline" 
+                    className="mt-4"
+                    onClick={() => {
+                      setSearchTerm('');
+                      setFilters({
+                        minRating: 0,
+                        specialties: [],
+                        sessionTypes: []
+                      });
+                    }}
+                  >
+                    Clear Filters
+                  </Button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -330,4 +351,4 @@ const Therapists = () => {
   );
 };
 
-export default Therapists;
+export default Therapists; 

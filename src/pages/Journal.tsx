@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import AppNavbar from '../components/AppNavbar';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -7,7 +6,26 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Book, Calendar, Search, Edit } from 'lucide-react';
 
-const JournalEntry = ({ entry, onView }) => {
+interface JournalEntry {
+  id: number;
+  title: string;
+  content: string;
+  mood: 'Happy' | 'Neutral' | 'Sad';
+  date: string;
+}
+
+interface JournalEntryProps {
+  entry: JournalEntry;
+  onView: (entry: JournalEntry) => void;
+}
+
+interface JournalEditorProps {
+  entry?: JournalEntry;
+  onSave: (entry: JournalEntry) => void;
+  onCancel: () => void;
+}
+
+const JournalEntry: React.FC<JournalEntryProps> = ({ entry, onView }) => {
   return (
     <Card className="card-hover cursor-pointer" onClick={() => onView(entry)}>
       <CardHeader className="pb-2">
@@ -30,10 +48,10 @@ const JournalEntry = ({ entry, onView }) => {
   );
 };
 
-const JournalEditor = ({ entry, onSave, onCancel }) => {
-  const [title, setTitle] = useState(entry?.title || '');
-  const [content, setContent] = useState(entry?.content || '');
-  const [mood, setMood] = useState(entry?.mood || 'Neutral');
+const JournalEditor: React.FC<JournalEditorProps> = ({ entry, onSave, onCancel }) => {
+  const [title, setTitle] = useState<string>(entry?.title || '');
+  const [content, setContent] = useState<string>(entry?.content || '');
+  const [mood, setMood] = useState<'Happy' | 'Neutral' | 'Sad'>(entry?.mood || 'Neutral');
 
   const handleSave = () => {
     if (!title.trim() || !content.trim()) return;
@@ -71,7 +89,7 @@ const JournalEditor = ({ entry, onSave, onCancel }) => {
             <Input
               id="title"
               value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
               placeholder="Give your entry a title"
             />
           </div>
@@ -83,7 +101,7 @@ const JournalEditor = ({ entry, onSave, onCancel }) => {
             <select
               id="mood"
               value={mood}
-              onChange={(e) => setMood(e.target.value)}
+              onChange={(e: ChangeEvent<HTMLSelectElement>) => setMood(e.target.value as 'Happy' | 'Neutral' | 'Sad')}
               className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
             >
               <option value="Happy">Happy</option>
@@ -99,7 +117,7 @@ const JournalEditor = ({ entry, onSave, onCancel }) => {
             <Textarea
               id="content"
               value={content}
-              onChange={(e) => setContent(e.target.value)}
+              onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)}
               placeholder="Write your thoughts here..."
               rows={8}
             />
@@ -123,9 +141,9 @@ const JournalEditor = ({ entry, onSave, onCancel }) => {
   );
 };
 
-const Journal = () => {
+const Journal: React.FC = () => {
   // Mock data - would come from API in a real app
-  const initialEntries = [
+  const initialEntries: JournalEntry[] = [
     { 
       id: 1, 
       title: 'Finding my balance', 
@@ -149,18 +167,18 @@ const Journal = () => {
     },
   ];
 
-  const [entries, setEntries] = useState(initialEntries);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedEntry, setSelectedEntry] = useState(null);
-  const [isEditing, setIsEditing] = useState(false);
-  const [isCreating, setIsCreating] = useState(false);
+  const [entries, setEntries] = useState<JournalEntry[]>(initialEntries);
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [selectedEntry, setSelectedEntry] = useState<JournalEntry | null>(null);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isCreating, setIsCreating] = useState<boolean>(false);
 
   const filteredEntries = entries.filter(entry => 
     entry.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
     entry.content.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleSaveEntry = (entry) => {
+  const handleSaveEntry = (entry: JournalEntry) => {
     if (isEditing) {
       setEntries(entries.map(e => e.id === entry.id ? entry : e));
       setIsEditing(false);
@@ -171,7 +189,7 @@ const Journal = () => {
     setSelectedEntry(null);
   };
 
-  const handleViewEntry = (entry) => {
+  const handleViewEntry = (entry: JournalEntry) => {
     setSelectedEntry(entry);
     setIsEditing(false);
     setIsCreating(false);
@@ -208,7 +226,7 @@ const Journal = () => {
               <Input 
                 placeholder="Search entries..." 
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
                 className="pl-9"
               />
             </div>
@@ -249,39 +267,30 @@ const Journal = () => {
               <Card>
                 <CardHeader className="pb-2">
                   <div className="flex justify-between items-start">
-                    <CardTitle>{selectedEntry.title}</CardTitle>
+                    <CardTitle className="text-2xl">{selectedEntry.title}</CardTitle>
                     <span className="text-sm text-gray-500 flex items-center">
                       <Calendar size={16} className="mr-1" />
                       {selectedEntry.date}
                     </span>
                   </div>
                   <CardDescription className="flex items-center gap-1">
-                    <div className={`w-2 h-2 rounded-full ${
-                      selectedEntry.mood === 'Happy' 
-                        ? 'bg-green-400' 
-                        : selectedEntry.mood === 'Neutral' 
-                          ? 'bg-blue-400' 
-                          : 'bg-red-400'
-                    }`}></div>
+                    <div className={`w-2 h-2 rounded-full ${selectedEntry.mood === 'Happy' ? 'bg-green-400' : selectedEntry.mood === 'Neutral' ? 'bg-blue-400' : 'bg-red-400'}`}></div>
                     {selectedEntry.mood} mood
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-700 whitespace-pre-line">{selectedEntry.content}</p>
+                  <p className="text-gray-700 whitespace-pre-wrap">{selectedEntry.content}</p>
                   <div className="mt-6 flex justify-end">
-                    <Button onClick={handleEditEntry} variant="outline" className="border-lavender text-lavender hover:bg-light-lavender">
+                    <Button onClick={handleEditEntry} variant="outline" className="bg-lavender hover:bg-opacity-90">
                       Edit Entry
                     </Button>
                   </div>
                 </CardContent>
               </Card>
             ) : (
-              <Card className="p-8 text-center h-64 flex flex-col items-center justify-center">
-                <Book size={48} className="text-gray-300 mb-3" />
-                <p className="text-gray-500 mb-4">Select a journal entry to view or create a new one</p>
-                <Button onClick={handleNewEntry} className="bg-lavender hover:bg-opacity-90">
-                  New Entry
-                </Button>
+              <Card className="p-8 text-center">
+                <Book size={40} className="mx-auto text-gray-300 mb-2" />
+                <p className="text-gray-500">Select an entry to view or create a new one</p>
               </Card>
             )}
           </div>
@@ -291,4 +300,4 @@ const Journal = () => {
   );
 };
 
-export default Journal;
+export default Journal; 

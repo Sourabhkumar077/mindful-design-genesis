@@ -5,10 +5,28 @@ import { Button } from "@/components/ui/button";
 import { Smile, Meh, Frown, Calendar, ArrowRight, TrendingUp, Book } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const MoodTracker = () => {
-  const [selectedMood, setSelectedMood] = useState(null);
+interface Mood {
+  name: 'Happy' | 'Neutral' | 'Sad';
+  icon: React.ElementType;
+  color: string;
+}
+
+interface JournalEntry {
+  id: number;
+  date: string;
+  title: string;
+  excerpt: string;
+}
+
+interface MoodData {
+  day: string;
+  mood: 'Happy' | 'Neutral' | 'Sad' | null;
+}
+
+const MoodTracker: React.FC = () => {
+  const [selectedMood, setSelectedMood] = useState<'Happy' | 'Neutral' | 'Sad' | null>(null);
   
-  const moods = [
+  const moods: Mood[] = [
     { name: 'Happy', icon: Smile, color: 'bg-green-100 text-green-500 border-green-200' },
     { name: 'Neutral', icon: Meh, color: 'bg-blue-100 text-blue-500 border-blue-200' },
     { name: 'Sad', icon: Frown, color: 'bg-red-100 text-red-500 border-red-200' },
@@ -50,13 +68,13 @@ const MoodTracker = () => {
   );
 };
 
-const Dashboard = () => {
-  const recentJournalEntries = [
+const Dashboard: React.FC = () => {
+  const recentJournalEntries: JournalEntry[] = [
     { id: 1, date: 'April 21, 2025', title: 'Finding balance', excerpt: 'Today I practiced meditation for 20 minutes and felt more centered afterward...' },
     { id: 2, date: 'April 19, 2025', title: 'Challenging day', excerpt: 'Work was stressful but I managed to use the breathing techniques...' },
   ];
 
-  const weeklyMoodData = [
+  const weeklyMoodData: MoodData[] = [
     { day: 'Mon', mood: 'Happy' },
     { day: 'Tue', mood: 'Happy' },
     { day: 'Wed', mood: 'Neutral' },
@@ -183,4 +201,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Dashboard; 

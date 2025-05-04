@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss";
 
-export default {
+const config: Config = {
 	darkMode: ["class"],
 	content: [
 		"./pages/**/*.{ts,tsx}",
@@ -24,6 +24,11 @@ export default {
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
+				lavender: {
+					DEFAULT: '#E6E6FA',
+					dark: '#B0B0D9',
+					light: '#F0F0FF',
+				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))'
@@ -63,7 +68,6 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				// Custom therapy website colors
-				lavender: '#9b87f5',
 				'light-lavender': '#E5DEFF',
 				teal: '#33C3F0',
 				'soft-blue': '#D3E4FD',
@@ -137,21 +141,29 @@ export default {
 					'50%': { backgroundPosition: '100% 50%' },
 					'100%': { backgroundPosition: '0% 50%' },
 				},
+				'pulse-slow': {
+					'0%, 100%': { opacity: '1' },
+					'50%': { opacity: '0.5' },
+				},
+				'spin-slow': {
+					'0%': { transform: 'rotate(0deg)' },
+					'100%': { transform: 'rotate(360deg)' },
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				'fade-in': 'fade-in 1s ease-in-out',
-				'slide-in-left': 'slide-in-left 0.8s ease-out',
-				'slide-in-right': 'slide-in-right 0.8s ease-out',
-				'slide-up': 'slide-up 0.8s ease-out',
+				'fade-in': 'fade-in 0.5s ease-out',
+				'slide-in-left': 'slide-in-left 0.5s ease-out',
+				'slide-in-right': 'slide-in-right 0.5s ease-out',
+				'slide-up': 'slide-up 0.5s ease-out',
 				'count-up': 'count-up 2s ease-out forwards',
-				'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
 				'float': 'float 6s ease-in-out infinite',
 				'breathe': 'breathe 8s ease-in-out infinite',
 				'textShine': 'textShine 3s linear infinite',
 				'wave': 'wave 3s ease-in-out infinite',
 				'gradient': 'gradient 8s linear infinite',
+				'spin-slow': 'spin-slow 8s linear infinite',
 			},
 			backgroundImage: {
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -165,3 +177,5 @@ export default {
 		require('@tailwindcss/typography'),
 	],
 } satisfies Config;
+
+export default config;

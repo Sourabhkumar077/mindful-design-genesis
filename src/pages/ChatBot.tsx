@@ -1,12 +1,36 @@
-
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, KeyboardEvent } from 'react';
 import AppNavbar from '../components/AppNavbar';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Send, Bot, User, Info, ArrowRight, ExternalLink, Clock } from 'lucide-react';
 
-const ChatMessage = ({ message }) => {
+interface Resource {
+  title: string;
+  url: string;
+}
+
+interface Message {
+  id: number;
+  sender: 'user' | 'bot';
+  text: string;
+  suggestions?: string[];
+  resources?: Resource[];
+}
+
+interface ChatMessageProps {
+  message: Message;
+}
+
+interface SuggestionPromptProps {
+  onSelectPrompt: (prompt: string) => void;
+}
+
+interface ChatHistoryProps {
+  onSelectChat: (id: number) => void;
+}
+
+const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
   const isUser = message.sender === 'user';
   
   return (
@@ -59,7 +83,7 @@ const ChatMessage = ({ message }) => {
   );
 };
 
-const SuggestionPrompt = ({ onSelectPrompt }) => {
+const SuggestionPrompt: React.FC<SuggestionPromptProps> = ({ onSelectPrompt }) => {
   const suggestions = [
     "I've been feeling anxious lately",
     "How can I improve my sleep?",
@@ -97,7 +121,7 @@ const SuggestionPrompt = ({ onSelectPrompt }) => {
   );
 };
 
-const ChatHistory = ({ onSelectChat }) => {
+const ChatHistory: React.FC<ChatHistoryProps> = ({ onSelectChat }) => {
   const histories = [
     { id: 1, title: "Anxiety discussion", date: "Yesterday", preview: "We discussed breathing techniques for anxiety..." },
     { id: 2, title: "Sleep improvement", date: "Apr 19", preview: "Tips for establishing a better sleep routine..." },
@@ -133,8 +157,8 @@ const ChatHistory = ({ onSelectChat }) => {
   );
 };
 
-const ChatBot = () => {
-  const [messages, setMessages] = useState([
+const ChatBot: React.FC = () => {
+  const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
       sender: 'bot',
@@ -142,9 +166,9 @@ const ChatBot = () => {
       suggestions: ["I'm feeling anxious", "I'm feeling down", "I need help with stress", "I'd like some self-care tips"]
     }
   ]);
-  const [input, setInput] = useState('');
-  const [showSuggestions, setShowSuggestions] = useState(true);
-  const messagesEndRef = useRef(null);
+  const [input, setInput] = useState<string>('');
+  const [showSuggestions, setShowSuggestions] = useState<boolean>(true);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
   
   // Auto-scroll to bottom of messages
   useEffect(() => {
@@ -155,7 +179,7 @@ const ChatBot = () => {
     if (!input.trim()) return;
     
     // Add user message
-    const userMessage = {
+    const userMessage: Message = {
       id: Date.now(),
       sender: 'user',
       text: input
@@ -167,7 +191,7 @@ const ChatBot = () => {
     
     // Simulate bot response (in a real app, this would be an API call)
     setTimeout(() => {
-      let botResponse;
+      let botResponse: Message;
       
       // Simple keyword matching for demo purposes
       if (input.toLowerCase().includes('anxious') || input.toLowerCase().includes('anxiety')) {
@@ -205,14 +229,14 @@ const ChatBot = () => {
     }, 1500);
   };
   
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSendMessage();
     }
   };
   
-  const handleSelectPrompt = (prompt) => {
+  const handleSelectPrompt = (prompt: string) => {
     setInput(prompt);
     setShowSuggestions(false);
   };
@@ -255,43 +279,32 @@ const ChatBot = () => {
           
           <div className="md:col-span-3">
             <Card className="h-[calc(100vh-12rem)]">
-              <CardHeader className="border-b pb-3">
-                <CardTitle className="text-lg flex items-center">
-                  <Bot size={20} className="mr-2 text-lavender" />
-                  Serrenity Assistant
-                </CardTitle>
+              <CardHeader className="pb-2">
+                <CardTitle>Chat</CardTitle>
                 <CardDescription>
-                  AI-powered mental health support
+                  Ask me anything about mental health and wellbeing
                 </CardDescription>
               </CardHeader>
-              
-              <CardContent className="overflow-y-auto h-[calc(100%-12rem)] py-4">
-                <div className="space-y-2">
+              <CardContent className="flex flex-col h-[calc(100%-8rem)]">
+                <div className="flex-1 overflow-y-auto mb-4">
                   {messages.map(message => (
                     <ChatMessage key={message.id} message={message} />
                   ))}
                   <div ref={messagesEndRef} />
                 </div>
-              </CardContent>
-              
-              <CardFooter className="border-t pt-3">
-                <form className="w-full flex gap-2" onSubmit={(e) => { e.preventDefault(); handleSendMessage(); }}>
+                <div className="flex gap-2">
                   <Input
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={handleKeyDown}
                     placeholder="Type your message..."
-                    className="flex-grow"
+                    className="flex-1"
                   />
-                  <Button 
-                    type="submit" 
-                    disabled={!input.trim()} 
-                    className="bg-lavender hover:bg-opacity-90"
-                  >
+                  <Button onClick={handleSendMessage} className="bg-lavender hover:bg-opacity-90">
                     <Send size={18} />
                   </Button>
-                </form>
-              </CardFooter>
+                </div>
+              </CardContent>
             </Card>
           </div>
         </div>
@@ -300,4 +313,4 @@ const ChatBot = () => {
   );
 };
 
-export default ChatBot;
+export default ChatBot; 
